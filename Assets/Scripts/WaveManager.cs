@@ -24,7 +24,7 @@ public class WaveManager : MonoBehaviour
         Vector3 offset = new Vector3(1.5f, 0, 9.5f);
         int spawnPos = GetRandomPosition();
         Debug.Log("Spawning at waypoint: " +  spawnPos);
-        Instantiate(zombiePrefab, waypointList[spawnPos].transform.position + offset, Quaternion.Euler(0, 180, 0));
+        Instantiate(zombiePrefab, waypointList[spawnPos].transform.position, Quaternion.Euler(0, 180, 0));
     }
 
     IEnumerator ZombieSpawnRoutine()

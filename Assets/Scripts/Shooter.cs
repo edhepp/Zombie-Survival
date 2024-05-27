@@ -7,6 +7,8 @@ public class Shooter : MonoBehaviour
 
     [SerializeField] GameObject bulletPrefab;
 
+    [SerializeField] float shootDelay = 3f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +26,7 @@ public class Shooter : MonoBehaviour
         while(true)
         {
             Instantiate(bulletPrefab, transform.position + new Vector3(0, 0, 0.5f), Quaternion.identity);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(shootDelay);
         }
     }
 }
