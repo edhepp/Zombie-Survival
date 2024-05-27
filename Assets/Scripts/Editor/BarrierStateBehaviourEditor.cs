@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(BarrierStateBehaviour))]
-public class BarrierBehaviourEditor : Editor
+public class BarrierStateBehaviourEditor : Editor
 {
     public override void OnInspectorGUI()
     {
