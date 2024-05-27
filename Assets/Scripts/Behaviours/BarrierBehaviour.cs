@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BarrierBehaviour : MonoBehaviour, IInteractable, IDamageable, IRepairable
 {
     [SerializeField]
     private float _health = 100.0f;
-
+    [SerializeField]
     private float _currentHealth = 0.0f;
     void Start()
     {
@@ -16,7 +17,7 @@ public class BarrierBehaviour : MonoBehaviour, IInteractable, IDamageable, IRepa
     }
 
     private bool _isRepairBusy = false;
-[ContextMenu(nameof(Interact))]
+    [ContextMenu(nameof(Interact))]
     public void Interact()
     {
         // When click request for an engineer to do repairs (event)
@@ -34,42 +35,51 @@ public class BarrierBehaviour : MonoBehaviour, IInteractable, IDamageable, IRepa
             Debug.Log("Requset to Stop Rapair");
         }
     }
-[ContextMenu(nameof(TakeDamage))]
+    [ContextMenu(nameof(TakeDamage))]
     public void TakeDamage(float damageMultiplier = 25.0f)
     {
+        _currentHealth -= damageMultiplier;
+        if (_currentHealth <= 0)
+        {
+            _currentHealth = 0;
+            Destroyed();
+            return;
+        }
+        Debug.Log("Event Request Barrier Damaged");
         // Event (int)
             // (Update UI) (Call Audio SFX) (Call VFX)
         //Call this method when Zombie Attacks collider via OnTrigger Enter
-        throw new System.NotImplementedException();
     }
 
     public void Destroyed()
     {
         //Send event for destoryed (Update UI Warning) (Audio) (FX)
-        throw new System.NotImplementedException();
+        Debug.Log("Fully Destroyed");
     }
-[ContextMenu(nameof(Repair))]
+
+    [ContextMenu(nameof(Repair))]
     public void Repair(float multiplier = 10.0f)
     {
         _currentHealth += multiplier;
         if (_currentHealth >= _health)
         {
-            FullyRepaired();
             _currentHealth = _health;
             _isRepairBusy = false;
+            FullyRepaired();
+            return;
         }
+        Debug.Log("Event Request Increment Audio, SFX, VFX");
         // public access
         // Request UI Health update (increments)
         // some logic For a complete job (Audio, UI update)
         // Send Event onComplete or Canceled
             //Complete (UI update) (Player Stop working)
             //Cancel (Player stop working)
-        throw new System.NotImplementedException();
     }
-
     public void FullyRepaired()
     {
         //Send Event for Fully Repaired
-        throw new System.NotImplementedException();
+        Debug.Log("Fully Repaired");
     }
 }
+
