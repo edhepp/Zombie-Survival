@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class BarrierBehaviour : MonoBehaviour, IInteractable, IDamageable, IRepairable
+public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, IRepairable
 {
     [SerializeField]
     private float _health = 100.0f;

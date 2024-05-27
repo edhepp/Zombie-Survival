@@ -1,26 +1,26 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(BarrierBehaviour))]
+[CustomEditor(typeof(BarrierStateBehaviour))]
 public class BarrierBehaviourEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        BarrierBehaviour barrierBehaviour = (BarrierBehaviour)target;
+        BarrierStateBehaviour barrierStateBehaviour = (BarrierStateBehaviour)target;
         if (GUILayout.Button("Interact"))
         {
-            barrierBehaviour.Interact();
+            barrierStateBehaviour.Interact();
         }
         
         if (GUILayout.Button("Take Default Damage"))
         {
-            barrierBehaviour.TakeDamage();
+            barrierStateBehaviour.TakeDamage();
         }
 
         if (GUILayout.Button("Repair Default Mult"))
         {
-            barrierBehaviour.Repair();
+            barrierStateBehaviour.Repair();
         }
 
     }

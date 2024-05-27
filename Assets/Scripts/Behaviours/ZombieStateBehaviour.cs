@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZombieBehaviour : MonoBehaviour, IDamageable, IInteractable
+public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
 {
     [SerializeField] private float _helth = 100.0f;
 
