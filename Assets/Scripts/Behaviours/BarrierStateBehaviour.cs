@@ -20,9 +20,13 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
     private float _health = 100.0f;
     [SerializeField]
     private float _currentHealth = 0.0f;
+    [SerializeField] 
+    private float _zOffsetTargetPosition = 0.7f;
     void Start()
     {
         _currentHealth = _health;
+        float targetOffset = transform.position.z - _zOffsetTargetPosition;
+        TargetPosition = new Vector3(transform.position.x, transform.position.y, targetOffset);
         // Listen for events or
         // Allow public access
     }
@@ -30,6 +34,7 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
     private bool _isRepairBusy = false;
     public void Interact()
     {
+        //Bug: When clicking another barrier othet then "this" this state doesn't change. (cancel repairing)
         // When click request for an engineer to do repairs (event)
         // if repair is current request stop else request repair
         if (!_isRepairBusy)
@@ -63,6 +68,8 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
             // (Update UI) (Call Audio SFX) (Call VFX)
         //Call this method when Zombie Attacks collider via OnTrigger Enter
     }
+
+    public Vector3 TargetPosition { get; set; }
 
     public void Repair(float multiplier = 10.0f)
     {
