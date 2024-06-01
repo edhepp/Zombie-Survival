@@ -41,9 +41,18 @@ public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
             FocusFireEvent?.Invoke(null);
         }
     }
+    [SerializeField] private Transform _attackHitBox;
     public void Attack()
     {
-        Debug.Log("Attack performed", transform);
+        if (_attackHitBox is null)
+        {
+            Debug.LogWarning("_attackHitBox not set", transform);
+            return;
+        }
+        _attackHitBox.gameObject.SetActive(true);
+        
+        //Rule: 1 zombie cant destory a barrier faster than it can be repaired.
+        // If zombie destorys one barrier ignore all barrier colliders and accept any player colliders.
         // how will zombies know to attack barriers when close
         // how will zombies know to attack players or barriers
     }

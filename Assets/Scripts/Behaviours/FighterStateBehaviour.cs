@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
-public class FighterStateBehaviour : MonoBehaviour
+public class FighterStateBehaviour : MonoBehaviour, IDamageable
 {
     public delegate void AssignRepairer(FighterStateBehaviour AssignJob, BarrierStateBehaviour toBarrier);
 
@@ -13,6 +13,7 @@ public class FighterStateBehaviour : MonoBehaviour
     private Vector3 _barrierLocation;
     void Start()
     {
+        _currenthealth = _health;
         _player = transform;
         _originalPost = _player.transform.position;
         //Listen for a repair request
@@ -20,6 +21,7 @@ public class FighterStateBehaviour : MonoBehaviour
         ZombieStateBehaviour.FocusFireEvent += (x) => ZombieFocusFire(x);
         ZombieStateBehaviour.KilledEvent += () => ZombieFocusFire();
     }
+    //Todo: move ZombieFocuseFire to Shoot script
     private void ZombieFocusFire(ZombieStateBehaviour zombie = null)
     {
         if (_currentBarrier) return;
@@ -85,5 +87,23 @@ public class FighterStateBehaviour : MonoBehaviour
             //Todo: if NPC is Gunner then 1X repair with 50% fast the rest 50% slow
             //Shoot ray cast to repair? or use a box coolider with hammer animation
         }
+    }
+
+    private float _health = 1.0f;
+    private float _currenthealth = 0.0f;
+    public void TakeDamage(float damageMultiplier = 1000.0f)
+    {
+        Debug.LogWarning("player was damaged", transform);
+        _currenthealth -= damageMultiplier;
+        if (_currenthealth <= 0)
+        {
+            _currenthealth = 0;
+            Destroyed();
+        }
+    }
+
+    public void Destroyed()
+    {
+        Debug.LogWarning("player was destoryed", transform);
     }
 }
