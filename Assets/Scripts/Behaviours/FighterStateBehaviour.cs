@@ -17,6 +17,23 @@ public class FighterStateBehaviour : MonoBehaviour
         _originalPost = _player.transform.position;
         //Listen for a repair request
         BarrierStateBehaviour.InteractEvent += (x) => RequestRepair(x);
+        ZombieStateBehaviour.FocusFireEvent += (x) => ZombieFocusFire(x);
+        ZombieStateBehaviour.KilledEvent += () => ZombieFocusFire();
+    }
+    private void ZombieFocusFire(ZombieStateBehaviour zombie = null)
+    {
+        if (_currentBarrier) return;
+        if (zombie is null)
+        {
+            transform.rotation = Quaternion.identity;
+            Debug.DrawLine(transform.position, transform.forward * 100, Color.red,0.5f);
+            return;
+        }
+
+        Vector3 zombieP = zombie.transform.position;
+        Vector3 targetPosition = new Vector3(zombieP.x, transform.position.y, zombieP.z);
+        transform.LookAt(targetPosition);
+        Debug.DrawLine(transform.position, transform.forward * 100, Color.red,0.5f);
     }
 
     public void RepairCompleteOrCanceled()
@@ -25,7 +42,6 @@ public class FighterStateBehaviour : MonoBehaviour
     }
     // if Repairer is already assign find someone else.
     // if you only have one engineer then manually move him to the destination.
-    // 
     private BarrierStateBehaviour _currentBarrier;
 
     private void RequestRepair(BarrierStateBehaviour barrier)

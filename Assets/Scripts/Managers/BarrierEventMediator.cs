@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BarrierFighterEventMediator : MonoBehaviour
+public class BarrierEventMediator : MonoBehaviour
 {
     // Listen for all events that are exchanged between Fighers and Barriers
     // do some logic on those events.
