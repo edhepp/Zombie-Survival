@@ -19,6 +19,11 @@ public class ZombieStateBehaviourEditor : Editor
         {
             zombieStateBehaviour.TakeDamage();
         }
+
+        if (GUILayout.Button("Attack"))
+        {
+            zombieStateBehaviour.Attack();
+        }
     }
     
 }
