@@ -22,6 +22,7 @@ public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
 
     private void OnEnable()
     {
+        //Todo: reset all parameters needed
         _currentHealth = _helth;
         _isFocusedOn = false;
     }
@@ -87,6 +88,7 @@ public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
     public void Destroyed()
     {
         KilledEvent?.Invoke();
+        gameObject.SetActive(false);
         Debug.Log("Killed");
     }
 }
