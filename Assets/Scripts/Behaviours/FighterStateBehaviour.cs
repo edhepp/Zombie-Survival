@@ -4,6 +4,9 @@ using Vector3 = UnityEngine.Vector3;
 
 public class FighterStateBehaviour : MonoBehaviour
 {
+    public delegate void AssignRepairer(FighterStateBehaviour AssignJob, BarrierStateBehaviour toBarrier);
+
+    public static event AssignRepairer AssignThis;
     private Transform _player;
     private Transform _barrier;
     private Vector3 _originalPost;
@@ -13,21 +16,34 @@ public class FighterStateBehaviour : MonoBehaviour
         _player = transform;
         _originalPost = _player.transform.position;
         //Listen for a repair request
-        BarrierStateBehaviour.InteractEvent += (x) => MoveToRepair(x);
+        BarrierStateBehaviour.InteractEvent += (x) => RequestRepair(x);
     }
-    private void MoveToRepair(BarrierStateBehaviour barrierState)
+
+    public void RepairCompleteOrCanceled()
     {
-        if (barrierState is null)
+        _currentBarrier = null;
+    }
+    // if Repairer is already assign find someone else.
+    // if you only have one engineer then manually move him to the destination.
+    // 
+    private BarrierStateBehaviour _currentBarrier;
+
+    private void RequestRepair(BarrierStateBehaviour barrier)
+    {
+        if (barrier is null) return;
+        if (_currentBarrier && _currentBarrier != barrier)
         {
-            Debug.Log("Stop repair");
-            _barrier = null;
-            _barrierLocation = _originalPost;
+            Debug.LogWarning("Already busy", transform);
             return;
         }
-
-        _barrierLocation = new Vector3(barrierState.TargetPosition.x, transform.position.y,
-            barrierState.TargetPosition.z);
-        _barrier = barrierState.transform;
+        _currentBarrier = barrier;
+        AssignThis?.Invoke(this, barrier);
+    }
+    public void AcceptedRepairRequest()
+    {
+        if (_currentBarrier is null) return;
+        _barrierLocation = new Vector3(_currentBarrier.TargetPosition.x, transform.position.y,
+            _currentBarrier.TargetPosition.z);
         Debug.Log("move to Repair site");
         //Change animation state to repair
     }
@@ -36,7 +52,7 @@ public class FighterStateBehaviour : MonoBehaviour
         //Todo: Move this Logic to a Move script create an event or interface.
         _player.transform.position = Vector3.MoveTowards(
             _player.transform.position, 
-            _barrier is null ? _originalPost : _barrierLocation, 
+            _currentBarrier is null ? _originalPost : _barrierLocation, 
             1 * Time.fixedDeltaTime
             );
     }

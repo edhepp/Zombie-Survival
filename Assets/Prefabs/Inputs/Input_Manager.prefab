@@ -45,3 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 11400000, guid: 9e5d75e168586594dbaec64a505a1258, type: 2}
+  _interactableLayers:
+    serializedVersion: 2
+    m_Bits: 256

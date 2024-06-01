@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1290019865436474269}
   - component: {fileID: 1872980381847400733}
   - component: {fileID: 7896721037200608909}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wood_Barrier_Fense
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,3 +119,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 100
+  _currentHealth: 0
+  _zOffsetTargetPosition: 0.7
