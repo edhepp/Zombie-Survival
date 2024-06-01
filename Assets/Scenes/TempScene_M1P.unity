@@ -9167,10 +9167,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6161174734407370929, guid: acde8c0050197f846b9c9188c24ba881, type: 3}
-      propertyPath: zombiePrefab
-      value: 
-      objectReference: {fileID: 6439447937438303152, guid: 93b4893b760ec1e48b2c84763e467a03, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
