@@ -13,7 +13,7 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
     public delegate void BarrierState();
     public static event BarrierState DestoryedEvent;
 
-    public delegate void BarrierHealth(float health);
+    public delegate void BarrierHealth(BarrierStateBehaviour barrier, float health);
     public static event BarrierHealth TookDamageEvent;
     public static event BarrierHealth RepairEvent;
     
@@ -31,6 +31,7 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
         TargetPosition = new Vector3(transform.position.x, transform.position.y, targetOffset);
         // Listen for events or
         // Allow public access
+        RepairEvent?.Invoke(this, _currentHealth);
     }
 
     private bool _isRepairBusy = false;
@@ -53,7 +54,7 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
             Destroyed();
             return;
         }
-        TookDamageEvent?.Invoke(_currentHealth);
+        TookDamageEvent?.Invoke(this, _currentHealth);
         Debug.Log("Event Request Barrier Damaged");
         // Event (int)
             // (Update UI) (Call Audio SFX) (Call VFX)
@@ -71,7 +72,7 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
             FullyRepaired();
             return;
         }
-        RepairEvent?.Invoke(_currentHealth);
+        RepairEvent?.Invoke(this, _currentHealth);
         Debug.Log("Event Request Increment Audio, SFX, VFX");
         // public access
         // Request UI Health update (increments)
