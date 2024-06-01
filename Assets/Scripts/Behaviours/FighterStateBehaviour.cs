@@ -22,20 +22,41 @@ public class FighterStateBehaviour : MonoBehaviour, IDamageable
         ZombieStateBehaviour.KilledEvent += () => ZombieFocusFire();
     }
     //Todo: move ZombieFocuseFire to Shoot script
+    private Transform _focusFireTarget = null;
     private void ZombieFocusFire(ZombieStateBehaviour zombie = null)
     {
         if (_currentBarrier) return;
         if (zombie is null)
         {
+            _focusFireTarget = null;
             transform.rotation = Quaternion.identity;
             Debug.DrawLine(transform.position, transform.forward * 100, Color.red,0.5f);
             return;
         }
+        _focusFireTarget = zombie.transform;
+        LookAtTarget();
+    }
+    private void FixedUpdate()
+    {
+        //Todo: Move this Logic to a Move script create an event or interface.
+        _player.transform.position = Vector3.MoveTowards(
+            _player.transform.position, 
+            _currentBarrier is null ? _originalPost : _barrierLocation, 
+            1 * Time.fixedDeltaTime
+            );
+        if (_focusFireTarget is null) return;
+        LookAtTarget();
+    }
 
-        Vector3 zombieP = zombie.transform.position;
-        Vector3 targetPosition = new Vector3(zombieP.x, transform.position.y, zombieP.z);
-        transform.LookAt(targetPosition);
+    private void LookAtTarget()
+    {
+        transform.LookAt(RotateToZombie(_focusFireTarget));
         Debug.DrawLine(transform.position, transform.forward * 100, Color.red,0.5f);
+    }
+    private Vector3 RotateToZombie(Transform target)
+    {
+        Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
+        return targetPosition;
     }
 
     public void RepairCompleteOrCanceled()
@@ -64,15 +85,6 @@ public class FighterStateBehaviour : MonoBehaviour, IDamageable
             _currentBarrier.TargetPosition.z);
         Debug.Log("move to Repair site");
         //Change animation state to repair
-    }
-    private void FixedUpdate()
-    {
-        //Todo: Move this Logic to a Move script create an event or interface.
-        _player.transform.position = Vector3.MoveTowards(
-            _player.transform.position, 
-            _currentBarrier is null ? _originalPost : _barrierLocation, 
-            1 * Time.fixedDeltaTime
-            );
     }
     private void OnTriggerEnter(Collider other)
     {

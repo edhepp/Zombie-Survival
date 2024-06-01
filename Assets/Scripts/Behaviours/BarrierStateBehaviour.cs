@@ -64,6 +64,7 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
     
     public void Repair(float multiplier = 10.0f)
     {
+        if (Collider.enabled == false) Collider.enabled = true;
         _currentHealth += multiplier;
         if (_currentHealth >= _health)
         {
@@ -87,8 +88,11 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
         //Send Event for Fully Repaired
         Debug.Log("Fully Repaired");
     }
+    [SerializeField]
+    private BoxCollider Collider;
     public void Destroyed()
     {
+        Collider.enabled = false;
         //Send event for destoryed (Update UI Warning) (Audio) (FX)
         DestoryedEvent?.Invoke();
         Debug.Log("Fully Destroyed");

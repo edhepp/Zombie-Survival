@@ -42,6 +42,20 @@ public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
         }
     }
     [SerializeField] private Transform _attackHitBox;
+    //Todo: if Zombie reaches Z 2.75 or less start attacking.
+    [SerializeField] private float _attackSpeed = 0.25f;
+    private float _CurrentAttackTime = 0;
+    private void FixedUpdate()
+    {
+        if (transform.position.z <= 2.75f)
+        {
+            if (_CurrentAttackTime + _attackSpeed < Time.time)
+            {
+                Attack();
+            }
+        }
+    }
+
     public void Attack()
     {
         if (_attackHitBox is null)
@@ -49,6 +63,7 @@ public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
             Debug.LogWarning("_attackHitBox not set", transform);
             return;
         }
+        _CurrentAttackTime = Time.time;
         _attackHitBox.gameObject.SetActive(true);
         
         //Rule: 1 zombie cant destory a barrier faster than it can be repaired.
