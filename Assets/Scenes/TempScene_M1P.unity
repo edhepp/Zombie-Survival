@@ -7599,11 +7599,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gunner
       objectReference: {fileID: 0}
+    - target: {fileID: 1524921270336419810, guid: 9d3071707de78044aa24383341a2a279, type: 3}
+      propertyPath: bulletSpawnPoint
+      value: 
+      objectReference: {fileID: 5791769528626792571}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d3071707de78044aa24383341a2a279, type: 3}
+--- !u!4 &5791769528626792571 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9207218895495571134, guid: 9d3071707de78044aa24383341a2a279, type: 3}
+  m_PrefabInstance: {fileID: 5791769528626792570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6199395239739913950
 PrefabInstance:
   m_ObjectHideFlags: 0
