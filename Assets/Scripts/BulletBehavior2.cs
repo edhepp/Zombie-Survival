@@ -20,7 +20,7 @@ public class BulletBehavior2 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<IDamageable>().TakeDamage(25.0f);
+        other.GetComponent<IDamageable>()?.TakeDamage(25.0f);
         Destroy(this.gameObject);
     }
 }

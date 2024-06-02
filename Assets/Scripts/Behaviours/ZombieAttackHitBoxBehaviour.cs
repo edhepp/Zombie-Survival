@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ZombieAttackHitBoxBehaviour : MonoBehaviour
 {
@@ -19,12 +20,18 @@ public class ZombieAttackHitBoxBehaviour : MonoBehaviour
     private void OnEnable()
     {
         _currentTime = Time.time;
+        _boxCollider = GetComponent<BoxCollider>();
     }
 
+    [SerializeField] private BoxCollider _boxCollider;
     private void OnTriggerEnter(Collider other)
     {
-        Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale / 2f, quaternion.identity, layerMask);
-
+        //LeftOff: 
+        Vector3 boxCenter = transform.position + _boxCollider.center;
+        Vector3 boxSize = transform.localScale / 2;
+        
+        Collider[] colliders = Physics.OverlapBox(boxCenter, boxSize, quaternion.identity, layerMask);
+        Debug.Log(other.name, other.transform);
         if (colliders.Length <= 0)
         {
             Debug.LogWarning("Found Colliders");
@@ -40,7 +47,12 @@ public class ZombieAttackHitBoxBehaviour : MonoBehaviour
         }
         //Call take damage on Interactable.TakeDamage(float damage);
         Debug.LogWarning("Sending Collider list of " + colliders.Length);
+        foreach (var collider in colliders)
+        {
+            Debug.Log(collider.name, collider.transform);
+        }
         HitBoxInteractables?.Invoke(_hitList);
+        _hitList.Clear();
         gameObject.SetActive(false);
     }
 

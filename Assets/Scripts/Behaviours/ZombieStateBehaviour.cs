@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
 {
+    //Feature: smart zombies
     public delegate void ZombieState();
     public static event ZombieState KilledEvent;
     public static event ZombieState TookDamageEvent;
@@ -16,6 +17,7 @@ public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
     [SerializeField] private float _currentHealth = 0.0f;
     private void Start()
     {
+        BarrierStateBehaviour.DestoryedEvent += (x) => BarrierDestoryed(x);
         _currentHealth = _helth;
         _isFocusedOn = false;
     }
@@ -25,6 +27,13 @@ public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
         //Todo: reset all parameters needed
         _currentHealth = _helth;
         _isFocusedOn = false;
+    }
+
+    private void BarrierDestoryed(BarrierStateBehaviour barrier)
+    {
+        //Get mediator list of destroyed barriers then pick one to go towards.
+        //if the zombie enables as a smart zombie. 5% chance to be smart per enable.
+        //20% chance on exsiting zombies present notice the destoryed barrier.
     }
 
     private bool _isFocusedOn = false;

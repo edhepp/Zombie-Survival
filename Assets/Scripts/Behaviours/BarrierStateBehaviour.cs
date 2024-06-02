@@ -10,8 +10,8 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
 
     public static event BarrierInteraction InteractEvent;
     public static event BarrierInteraction FullRepairEvent;
-    public delegate void BarrierState();
-    public static event BarrierState DestoryedEvent;
+    public static event BarrierInteraction DestoryedEvent;
+
 
     public delegate void BarrierHealth(BarrierStateBehaviour barrier, float health);
     public static event BarrierHealth TookDamageEvent;
@@ -92,9 +92,10 @@ public class BarrierStateBehaviour : MonoBehaviour, IInteractable, IDamageable, 
     private BoxCollider Collider;
     public void Destroyed()
     {
+        //Bug: Barrier loses interactable when collider is dissabled.
         Collider.enabled = false;
         //Send event for destoryed (Update UI Warning) (Audio) (FX)
-        DestoryedEvent?.Invoke();
+        DestoryedEvent?.Invoke(this);
         Debug.Log("Fully Destroyed");
     }
 }

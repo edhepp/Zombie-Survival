@@ -11,15 +11,20 @@ public class FighterStateBehaviour : MonoBehaviour, IDamageable
     private Transform _barrier;
     private Vector3 _originalPost;
     private Vector3 _barrierLocation;
+    private CapsuleCollider _playerCollider;
+
+    private void Awake()
+    {
+        _playerCollider = GetComponent<CapsuleCollider>();
+    }
+
     void Start()
     {
         _currenthealth = _health;
         _player = transform;
         _originalPost = _player.transform.position;
         //Listen for a repair request
-        BarrierStateBehaviour.InteractEvent += (x) => RequestRepair(x);
-        ZombieStateBehaviour.FocusFireEvent += (x) => ZombieFocusFire(x);
-        ZombieStateBehaviour.KilledEvent += () => ZombieFocusFire();
+        
     }
     //Todo: move ZombieFocuseFire to Shoot script
     private Transform _focusFireTarget = null;
@@ -116,6 +121,24 @@ public class FighterStateBehaviour : MonoBehaviour, IDamageable
 
     public void Destroyed()
     {
+        //Todo: When killed focus fire on zombie. and force fire imidiatly.
+        gameObject.SetActive(false);
+        GetComponent<CapsuleCollider>().enabled = false;
         Debug.LogWarning("player was destoryed", transform);
+    }
+
+    private void OnEnable()
+    {
+        _playerCollider.enabled = true;
+        BarrierStateBehaviour.InteractEvent += (x) => RequestRepair(x);
+        ZombieStateBehaviour.FocusFireEvent += (x) => ZombieFocusFire(x);
+        ZombieStateBehaviour.KilledEvent += () => ZombieFocusFire();
+    }
+
+    private void OnDisable()
+    {
+        BarrierStateBehaviour.InteractEvent -= (x) => RequestRepair(x);
+        ZombieStateBehaviour.FocusFireEvent -= (x) => ZombieFocusFire(x);
+        ZombieStateBehaviour.KilledEvent-= () => ZombieFocusFire();
     }
 }
