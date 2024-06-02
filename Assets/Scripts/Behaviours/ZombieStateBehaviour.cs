@@ -6,6 +6,7 @@ using UnityEngine;
 public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
 {
     //Feature: smart zombies
+    
     public delegate void ZombieState();
     public static event ZombieState KilledEvent;
     public static event ZombieState TookDamageEvent;
@@ -17,7 +18,6 @@ public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
     [SerializeField] private float _currentHealth = 0.0f;
     private void Start()
     {
-        BarrierStateBehaviour.DestoryedEvent += (x) => BarrierDestoryed(x);
         _currentHealth = _helth;
         _isFocusedOn = false;
     }
@@ -29,11 +29,15 @@ public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
         _isFocusedOn = false;
     }
 
-    private void BarrierDestoryed(BarrierStateBehaviour barrier)
+    private void FixedUpdate()
     {
-        //Get mediator list of destroyed barriers then pick one to go towards.
-        //if the zombie enables as a smart zombie. 5% chance to be smart per enable.
-        //20% chance on exsiting zombies present notice the destoryed barrier.
+        if (transform.position.z <= 2.75f)
+        {
+            if (_CurrentAttackTime + _attackSpeed < Time.time)
+            {
+                Attack();
+            }
+        }
     }
 
     private bool _isFocusedOn = false;
@@ -55,16 +59,6 @@ public class ZombieStateBehaviour : MonoBehaviour, IDamageable, IInteractable
     //Todo: if Zombie reaches Z 2.75 or less start attacking.
     [SerializeField] private float _attackSpeed = 0.25f;
     private float _CurrentAttackTime = 0;
-    private void FixedUpdate()
-    {
-        if (transform.position.z <= 2.75f)
-        {
-            if (_CurrentAttackTime + _attackSpeed < Time.time)
-            {
-                Attack();
-            }
-        }
-    }
 
     public void Attack()
     {

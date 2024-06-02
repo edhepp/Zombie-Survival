@@ -4,8 +4,11 @@ using Vector3 = UnityEngine.Vector3;
 
 public class FighterStateBehaviour : MonoBehaviour, IDamageable
 {
+    public delegate void RegisterFighter(Transform fighter);
+    public static event RegisterFighter AddFighter;
+    public static event RegisterFighter RemoveFighter;
     public delegate void AssignRepairer(FighterStateBehaviour AssignJob, BarrierStateBehaviour toBarrier);
-
+    
     public static event AssignRepairer AssignThis;
     private Transform _player;
     private Transform _barrier;
@@ -24,7 +27,7 @@ public class FighterStateBehaviour : MonoBehaviour, IDamageable
         _player = transform;
         _originalPost = _player.transform.position;
         //Listen for a repair request
-        
+        AddFighter?.Invoke(this.transform);
     }
     //Todo: move ZombieFocuseFire to Shoot script
     private Transform _focusFireTarget = null;
@@ -129,6 +132,7 @@ public class FighterStateBehaviour : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
+        
         _playerCollider.enabled = true;
         BarrierStateBehaviour.InteractEvent += (x) => RequestRepair(x);
         ZombieStateBehaviour.FocusFireEvent += (x) => ZombieFocusFire(x);
@@ -137,6 +141,7 @@ public class FighterStateBehaviour : MonoBehaviour, IDamageable
 
     private void OnDisable()
     {
+        RemoveFighter?.Invoke(this.transform);
         BarrierStateBehaviour.InteractEvent -= (x) => RequestRepair(x);
         ZombieStateBehaviour.FocusFireEvent -= (x) => ZombieFocusFire(x);
         ZombieStateBehaviour.KilledEvent-= () => ZombieFocusFire();

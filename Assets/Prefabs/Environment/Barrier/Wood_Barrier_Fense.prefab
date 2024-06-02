@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1872980381847400733}
   - component: {fileID: 7896721037200608909}
   - component: {fileID: -7290846468497547737}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Wood_Barrier_Fense
   m_TagString: Interactable
   m_Icon: {fileID: 0}

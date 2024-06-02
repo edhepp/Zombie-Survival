@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9207218895495571134}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: GunLocation (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 193489432236821002}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: GunLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,27 +124,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7134394785105016132, guid: 7cce1e8d50fa75b4aaefefeee6cf4b7a, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -6416400411484454144, guid: 7cce1e8d50fa75b4aaefefeee6cf4b7a, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -5151492872390713093, guid: 7cce1e8d50fa75b4aaefefeee6cf4b7a, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -3282224544444389344, guid: 7cce1e8d50fa75b4aaefefeee6cf4b7a, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -680007121006127350, guid: 7cce1e8d50fa75b4aaefefeee6cf4b7a, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 759631688476599104, guid: 7cce1e8d50fa75b4aaefefeee6cf4b7a, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7cce1e8d50fa75b4aaefefeee6cf4b7a, type: 3}
       propertyPath: m_Name
@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7cce1e8d50fa75b4aaefefeee6cf4b7a, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7cce1e8d50fa75b4aaefefeee6cf4b7a, type: 3}
       propertyPath: m_TagString
@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8908311948669537042, guid: 7cce1e8d50fa75b4aaefefeee6cf4b7a, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -287,15 +287,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_Name
@@ -303,7 +303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -377,15 +377,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_Name
@@ -393,7 +393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: a52c5e726231ccf468525cd7ce5826a9, type: 3}
       propertyPath: m_LocalScale.x
