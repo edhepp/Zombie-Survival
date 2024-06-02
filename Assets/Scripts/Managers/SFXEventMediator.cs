@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SFXEventMediator : MonoBehaviour
 {
@@ -23,6 +25,16 @@ public class SFXEventMediator : MonoBehaviour
 
     private HashSet<string> eventsThisFrame = new HashSet<string>();
 
+    private void Start()
+    {
+        ZombieStateBehaviour.KilledEvent += PlayZombieDiesSFX;
+    }
+
+    private void OnDestroy()
+    {
+        ZombieStateBehaviour.KilledEvent -= PlayZombieDiesSFX;
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -42,7 +54,7 @@ public class SFXEventMediator : MonoBehaviour
         eventsThisFrame.Clear();
     }
 
-    public void PlaySFX(string eventName, AudioClip clip)
+    private void PlaySFX(string eventName, AudioClip clip)
     {
         // Check if the event has already been triggered this frame
         if (eventsThisFrame.Contains(eventName))

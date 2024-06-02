@@ -6,7 +6,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    
     public static event System.Action OnMainMenu;
     public static event System.Action OnInGame;
     public static event System.Action OnGameOver;
@@ -28,6 +27,7 @@ public class GameManager : MonoBehaviour
         //Listen for MainMenu()
         //Listen for Ingame()
         //Listen for GameOver()
+        ZombieEventMediator.ZombiesWin += GameOver;
     }
 
     public void MainMenu()

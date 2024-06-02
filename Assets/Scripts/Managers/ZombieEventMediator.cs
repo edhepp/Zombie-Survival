@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class ZombieEventMediator : MonoBehaviour
 {
+    public static event System.Action ZombiesWin;
     public delegate void BarrierState(List<BarrierStateBehaviour> bariers);
     public static event BarrierState BarrierDestoryed;
     public static event BarrierState BarrierRepaired;
@@ -41,6 +42,7 @@ public class ZombieEventMediator : MonoBehaviour
         // stragglers ignoring the barrier. (inteligence level)
     }
 
+    private bool _gameOver = false;
     private void AddRemoveFighters(Transform fighter)
     {
         if (FighterTargets.Count > 0)
@@ -49,6 +51,11 @@ public class ZombieEventMediator : MonoBehaviour
             if (temp == fighter)
             {
                 FighterTargets.Remove(fighter);
+                if (FighterTargets.Count == 0)
+                {
+                    _gameOver = true;
+                    ZombiesWin?.Invoke();
+                }
                 return;
             }
         }

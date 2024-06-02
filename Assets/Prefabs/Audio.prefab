@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barrierSounds:
-  - {fileID: 8300000, guid: 49812cac6d87fa649998c760576c75ce, type: 3}
+  - {fileID: 8300000, guid: d50ed6285ab5b634fa2129ea9d529451, type: 3}
   - {fileID: 8300000, guid: a556280ee48f4bd429c835dc889f09c7, type: 3}
   - {fileID: 8300000, guid: d634d97d07aa68c40abed972d68415da, type: 3}
   repairingBarrierSounds:
