@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,10 @@ public class ZombieBehavior : MonoBehaviour
     [SerializeField] float moveSpeed = 2f;
 
     [SerializeField] private Rigidbody _rigidbody;
+
+    private float _smartZombie = 30.0f;
+
+    private bool _isZombieSmart = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +26,16 @@ public class ZombieBehavior : MonoBehaviour
         //ZombieEventMediator.BarrierRepaired
     }
 
+    private void OnEnable()
+    {
+        _isZombieSmart = Random.Range(0.0f, 100.0f) <= _smartZombie;
+    }
+
+    private void OnDisable()
+    {
+        _isZombieSmart = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -29,6 +44,7 @@ public class ZombieBehavior : MonoBehaviour
     private Transform _currentBarrierTarget = null;
     private void MoveToBarrier(List<BarrierStateBehaviour> barriers = null)
     {
+        SelectPlayer();
         if (barriers.Count <= 0)
         {
             _currentBarrierTarget = null;
@@ -52,24 +68,19 @@ public class ZombieBehavior : MonoBehaviour
     private Transform _target;
     private void MoveForward()
     {
-        if (_currentBarrierTarget && transform.position.z > 2.7f)
+        if (_isZombieSmart && _currentBarrierTarget && transform.position.z > 2.7f)
         {
             Vector3 direction = (_currentBarrierTarget.position - transform.position).normalized;
-            Vector3 moveStep = direction * moveSpeed * Time.deltaTime;
+            Vector3 moveStep = direction * (moveSpeed * Time.deltaTime);
 
             // Move the Rigidbody
             _rigidbody.MovePosition(_rigidbody.position + moveStep);
             return;
         }
-        if (_currentBarrierTarget && transform.position.z < 2.2f)
+        if (_targetPlayers.Count > 0 && _currentBarrierTarget && transform.position.z < 2.2f)
         {
             //pick a player and attack it
             //If that player is killed then target the next closest one.
-            if (_targetPlayers.Count <= 0)
-            {
-                SelectPlayer();
-                return;
-            }
             if (_target is null)
             {
                 SelectPlayer();
@@ -80,7 +91,7 @@ public class ZombieBehavior : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation = lookRotation;
         }
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        transform.Translate(Vector3.forward * (moveSpeed * Time.deltaTime));
     }
 
     private void SelectPlayer()
