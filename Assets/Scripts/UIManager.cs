@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Y) && isGameOver)
         {
+            GameManager.Instance.InGame();
             SceneManager.LoadScene(0);
         }
         if (Input.GetKeyDown(KeyCode.N) && isGameOver)
