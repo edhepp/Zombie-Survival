@@ -21,6 +21,7 @@ public class BulletBehavior2 : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         other.GetComponent<IDamageable>()?.TakeDamage(25.0f);
+        SFXEventMediator.Instance?.PlayImpactSFX();
         Destroy(this.gameObject);
     }
 }

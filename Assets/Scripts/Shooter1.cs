@@ -30,6 +30,7 @@ public class Shooter1 : MonoBehaviour
             
             Instantiate(bulletPrefab, bulletSpawnPoint.position, 
                 transform.rotation);
+            SFXEventMediator.Instance?.PlayGunShotSFX();
             yield return new WaitForSeconds(shootDelay);
         }
     }
