@@ -19,7 +19,7 @@ public class FighterStateBehaviour : MonoBehaviour, IDamageable
     private void Awake()
     {
         _playerCollider = GetComponent<CapsuleCollider>();
-    }
+    } 
 
     void Start()
     {
