@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,8 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text playAgainText;
 
     private int killCount = 0;
-
-    private ZombieStateBehaviour zombieStateBehavior;
+    private bool isGameOver = false;
 
     private void Awake()
     {
@@ -24,6 +24,19 @@ public class UIManager : MonoBehaviour
     {
         killCountText.text = $"Zombie Kills: {killCount}";
         ZombieStateBehaviour.KilledEvent += UpdateKillCount;
+        GameManager.OnGameOver += GameOver;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y) && isGameOver)
+        {
+            SceneManager.LoadScene(0);
+        }
+        if (Input.GetKeyDown(KeyCode.N) && isGameOver)
+        {
+            Application.Quit();
+        }
     }
 
     private void UpdateKillCount()
@@ -35,5 +48,13 @@ public class UIManager : MonoBehaviour
     private void OnDestroy()
     {
         ZombieStateBehaviour.KilledEvent -= UpdateKillCount;
+        GameManager.OnGameOver -= GameOver;
+    }
+
+    private void GameOver()
+    {
+        gameOverText.gameObject.SetActive(true);
+        playAgainText.gameObject.SetActive(true);
+        isGameOver = true;
     }
 }
